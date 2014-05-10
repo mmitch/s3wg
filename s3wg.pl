@@ -15,16 +15,13 @@ open HTML, '>', 'index.html' or die "can't open `index.html': $!";
 print HTML <<EOF;
 <html>
     <body>
-    <script>
-      function a(url) { document.getElementById("player").src=url; }
-    </script>
     <div>
       <video id="player" width="320" height="240" controls>
 	<source type="video/mp4" />
 	Your browser does not support the video tag.
       </video>
     </div>
-    <div id="files">
+    <div id="filelist" style="overflow:auto;">
       <ul>
 EOF
     ;
@@ -45,6 +42,13 @@ EOF
 print HTML <<EOF;
       </ul>
     </div>
+    <script>
+      function a(url) { document.getElementById("player").src=url; }
+      function resize() { document.getElementById("filelist").style.height = (window.innerHeight - 260) + 'px'; }
+      window.addEventListener('resize', resize, false);
+      window.addEventListener('orientationChanged', resize, false);
+      resize();
+    </script>
   </body>
 </html>
 EOF
